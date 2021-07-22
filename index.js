@@ -11,7 +11,7 @@ function getTeddies() {
         teddies.forEach((teddy, index) => {
             document.getElementById('catalog').innerHTML = document.getElementById('catalog').innerHTML +
             '<div class="col-12 col-md-8 col-lg-6 col-xl-4 my-3">\n' +
-            '          <a href="./produit.htlm?id='+teddy._id+'">\n' +
+            '          <a href="./produit.html?id='+teddy._id+'">\n' +
             '            <div class="card border-0">\n' +
             '              <img src="'+teddy.imageUrl+'" width="100%" height="60%" alt="ours en peluche" >\n' +
             '            <div class="card-body">\n' +
