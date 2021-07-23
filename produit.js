@@ -1,29 +1,41 @@
 
-function getTeddies(id) {
-    fetch(`http://localhost:3000/api/teddies/${id}`)
+function getTeddy(id) {
+    fetch('http://localhost:3000/api/teddies/'+id)
      .then(function(res) {
         if (res.ok) {
           return res.json();
         }
     })
-    .then(function(teddies) {
-        teddies.forEach((teddies, index) => {
-            document.getElementById('produit').innerHTML = document.getElementById('produit').innerHTML +
-            '         <div class="d-flex align-items-center justify-content-center col-5">\n'  +   
-            '           <img src="'+teddies.imageUrl+'" alt="ours" width="" height="60%" >\n'  +           
-            '         </div>\n'  +
-            '         <div class="col-7 text-center">\n'  +
-            '            <h1>'+teddies.name+'</h1>\n'  +     
-            '            <p>'+teddies.description+'</p>\n'  +
-            '            <p>'+teddies.color+'</p>\n'  +
-            '            <p>'+teddies.price+'</p>\n'  +
-            '            </div>';  
-            
-        });
+    .then(function(teddy) {
+        document.getElementById('teddy-image').src = teddy.imageUrl;
+        document.getElementById('teddy-name').innerHTML = teddy.name;
+        document.getElementById('teddy-description').innerHTML = teddy.description;
+        document.getElementById('teddy-price').innerHTML = teddy.price;
+        teddy.colors.forEach((color, index) => {
+            document.getElementById('teddy-color').innerHTML = document.getElementById('teddy-color').innerHTML +
+               '<option value='+color+'>'+color+'</option>';
+
+        })   
     })
     .catch(function(err) {
-        console.log
+        console.log(teddies)
+        console.log(err)
 
     });
 }
-let teddies= getTeddies();
+
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+        console.log(result);
+    return result;
+}
+
+let teddies= getTeddy(findGetParameter('produit'));
