@@ -10,7 +10,7 @@ function getTeddy(id) {
         document.getElementById('teddy-image').src = teddy.imageUrl;
         document.getElementById('teddy-name').innerHTML = teddy.name;
         document.getElementById('teddy-description').innerHTML = teddy.description;
-        document.getElementById('teddy-price').innerHTML = teddy.price;
+        document.getElementById('teddy-price').innerHTML = (teddy.price/100)+'€';
         teddy.colors.forEach((color, index) => {
             document.getElementById('teddy-color').innerHTML = document.getElementById('teddy-color').innerHTML +
                '<option value='+color+'>'+color+'</option>';
@@ -38,4 +38,4 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-let teddies= getTeddy(findGetParameter('produit'));
+let teddies= getTeddy(findGetParameter('id'));

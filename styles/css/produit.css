@@ -32,3 +32,74 @@ footer a {
 footer a:hover {
   color: #8f5bfe;
 }
+
+main {
+  margin: 10rem 0 10rem 0;
+}
+
+main .row img {
+  width: auto;
+  height: 380px;
+}
+
+main .a {
+  background-color: #bb7382;
+  border-radius: 25px;
+  color: white;
+}
+
+main .a #teddy-name {
+  margin: 0 0 4rem 0;
+}
+
+main .a #teddy-description {
+  margin-bottom: 3rem;
+}
+
+main .a #teddy-color {
+  margin-bottom: 2rem;
+}
+
+main .a button {
+  padding: 0.5rem;
+  border-radius: 20px;
+  border-color: #8f5bfe;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transition-duration: 400ms;
+          transition-duration: 400ms;
+}
+
+main .a button:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
+
+@media screen and (max-width: 1200px) {
+  main {
+    margin: 2rem 0 0 0;
+  }
+  main .a {
+    border-radius: 25px 25px 0 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  main {
+    margin: 2rem 0 0 0;
+  }
+  main .a {
+    border-radius: 0px 0px 0 0px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  main .row img {
+    width: auto;
+    height: 237px;
+  }
+}

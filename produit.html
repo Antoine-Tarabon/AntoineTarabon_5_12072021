@@ -36,16 +36,18 @@
             </nav>
         </header>
         <main class="container">
-            <div class="row" id="produit">
-              <div class="d-flex align-items-center justify-content-center col-5">
-                 <img src="" alt="ours" width="" height="60%" >
+            <div class="row justify-content-lg-between" id="produit">
+              <div class="d-flex align-items-center justify-content-center col-sm-12 col-xl-5">
+                 <img src="" alt="ours" width="" height="60%" id="teddy-image" >
                </div>
-               <div class="col-7 text-center">
+               <div class="a col-xl-6 text-center">
                 <h1 id="teddy-name"></h1>
                 <p id="teddy-description"></p>
                 <select id="teddy-color"></select>
                 <p id="teddy-price"></p>
+                <button class="my-2" onclick="orderTeddy()" >Ajouter au panier</button>
                </div>
+            </div>
             
         </main>
         <footer class="container-fluid">
