@@ -1,0 +1,22 @@
+@import 'main.scss';
+
+main{
+    #myForm{
+        margin: 1rem;
+        input{
+            margin: 0.5rem 0 0.5rem 0;
+        }
+        #envoyer{
+        border-radius: 20px;
+        border-color: #8f5bfe;
+        padding: 0.5rem;
+        transform: scale(1);
+        transition-property: transform;
+        transition-duration: 400ms;
+        &:hover {
+        transform: scale(1.15);
+        }
+    }
+    }
+    
+}
