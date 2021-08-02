@@ -1,3 +1,33 @@
+(JSON.parse(localStorage.getItem('cart'))).forEach(function(teddy) {
+    document.getElementById('panier').innerHTML = document.getElementById('panier').innerHTML +
+
+    '            <div class="card border-0 my-3 col-4">\n' +
+    '          <a href="./produit.html?id='+teddy._id+'">\n' +
+    '              <img src="'+teddy.imageUrl+'" width="100%" height="100%" alt="ours en peluche" >\n' +
+    '          </a> \n' +
+    '            </div>\n' +
+    '            <div class="card-body text-center col-4 ">\n' +
+    '              <h3 class="card-title">'+teddy.name+'</h3>\n' +
+    '              <p class="card-text ">'+(teddy.price/100)+' €</p>\n' +
+    '              <p class="card-description">'+teddy.description+'</p>\n' +
+    '              <p class="card-color">'+teddy.colors+'</p>\n' +
+    '            </div>\n' +
+    '              <div class="etoiles d-flex align-items-center justify-content-center col-2 ">\n' +
+    '                <i class="fas fa-star active"></i>\n' +
+    '                <i class="fas fa-star active"></i>\n' +
+    '                <i class="fas fa-star active"></i>\n' +
+    '                <i class="fas fa-star active"></i>\n' +
+    '                <i class="fas fa-star active"></i>\n' +
+    '          </div>\n'  +
+    '          <div class="d-flex align-items-center justify-content-center col-2">\n' +
+    '          <button onclick="supprTeddyToCart()" > <i class="fas fa-times"></i> </button>'
+});
+console.log(localStorage)
+function supprTeddyToCart(){
+  localStorage.removeItem(teddy);
+}
+
+
 window.addEventListener("load", function () {
     function sendData() {
       let XHR = new XMLHttpRequest();

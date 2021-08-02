@@ -11,11 +11,11 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script defer src="./produit.js"></script>
+    
 
     <title>Produit</title>
 </head>
 <body>
-    <body>
         <header class="container-fluid">
             <nav class="row align-items-center">        
                  <div class="col-sm-12 col-md-6 col-lg-8">
@@ -29,7 +29,7 @@
                      </div> 
       
                   <div class="text-center my-2 col-6 col-sm-6 col-md-3 col-lg-2">
-                       <a href="./panier.html">Panier
+                       <a href="./panier.html">Panier <span id="cart-quantity"></span>
                        <img src="./node_modules/bootstrap-icons/icons/basket2-fill.svg" alt="panier"></a>
                        <!-- mettre un +1 lors de lappui sur le bouton ajouter au panier  -->
                  </div>   
@@ -45,7 +45,7 @@
                 <p id="teddy-description"></p>
                 <select id="teddy-color"></select>
                 <p id="teddy-price"></p>
-                <button class="my-2" onclick="orderTeddy()" >Ajouter au panier</button>
+                <button class="my-2" onclick="addTeddyToCart()" >Ajouter au panier</button>
                </div>
             </div>
             
@@ -67,9 +67,9 @@
       
             </div>
       
-        </footer>
-         
-      </body>
-    
+        </footer>  
+        <script>
+          document.getElementById('cart-quantity').innerHTML = '(' + JSON.parse(localStorage.getItem('cart')).length + ')';
+        </script>
 </body>
 </html>
