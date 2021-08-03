@@ -1,6 +1,15 @@
 @import 'main.scss';
 
 main{
+    #panier{
+        button{
+            border: none;
+            background-color: transparent;
+            i{
+                color: red;
+            }
+        }
+    }
     #myForm{
         margin: 1rem;
         input{

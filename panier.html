@@ -39,20 +39,46 @@
     <main class="container">
       <div class="row" id="panier"></div>
 
-      <form id="myForm">
-        <label for="myName">Nom :</label>
-        <input id="myName" type="text" name="name"><br>
-        <label for="monAdresse">Adresse :</label>
-        <input id="monAdresse" type="text" name="adresse"><br>
-        <label for="maVille">Ville :</label>
-        <input id="maVille" type="text" name="ville"><br>
-        <label for="monCodePostal">code postal :</label>
-        <input id="monCodePostal" type="number" name="codePostal" required
-        minlength="5" maxlength="5"><br>
-        <label for="monEmail">Email :</label>
-        <input id="monEmail"name="email" type="email"><br>
-        <input id="envoyer" type="submit" value="Envoyer !">
-      </form>
+      <div class="cart-card__form">
+        <h2>Votre adresse de livraison</h2>
+        <form class="form">
+            <div class="name-and-lastname">
+                <div class="cart-card__form-line" id="bloc__name">
+                    <label for="name">Prénom :</label>
+                    <input type="text" placeholder="Prénom" id="name" name="user_name" required> 
+                </div>
+                <div class="cart-card__form-line" id="bloc__lastname">
+                    <label for="lastname">Nom :</label>
+                    <input type="text" placeholder="Nom" id="lastname" name="user_lastname" required>
+                </div>
+            </div>        
+            <div class="postal-and-city">
+                <div class="cart-card__form-line" id="bloc__postal">
+                    <label for="postal">Code postal :</label>
+                    <input type="text" placeholder="Code postal" id="postal" name="user_postal" required>
+                </div>
+                <div class="cart-card__form-line" id="bloc__city">
+                    <label for="city">Ville :</label>
+                    <input type="text" placeholder="Ville" id="city" name="user_city" required>
+                </div>
+            </div>
+            <div class="cart-card__form-line" id="bloc__adress">
+                <label for="adress">Adresse :</label>
+                <input type="text" placeholder="Adresse de livraison" id="adress" name="user_adress" required>
+            </div>
+            <div class="cart-card__form-line" id="bloc__mail">
+                <label for="mail">Adresse mail :</label>
+                <input type="email" placeholder="Adresse mail" id="mail" name="user_mail" required>
+            </div>
+            <div class="cart-card__form-line" id="bloc__phone">
+                <label for="phone" >Numéro de téléphone :</label>
+                <input type="tel" placeholder="Numéro de téléphone" id="phone" name="phone" required >
+            </div>
+            <div class="erreur"></div>
+            <div class="cart-card__form__buttons">
+                    <button id="submit" class="cart-card__form__button to-pay" >Commander</button>
+            </div>
+        </form>
     </main>
 
     <footer class="container-fluid">

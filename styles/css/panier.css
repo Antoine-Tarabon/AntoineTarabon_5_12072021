@@ -33,6 +33,15 @@ footer a:hover {
   color: #8f5bfe;
 }
 
+main #panier button {
+  border: none;
+  background-color: transparent;
+}
+
+main #panier button i {
+  color: red;
+}
+
 main #myForm {
   margin: 1rem;
 }

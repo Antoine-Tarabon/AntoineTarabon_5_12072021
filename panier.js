@@ -22,43 +22,88 @@
     '          <div class="d-flex align-items-center justify-content-center col-2">\n' +
     '          <button onclick="supprTeddyToCart()" > <i class="fas fa-times"></i> </button>'
 });
-console.log(localStorage)
-function supprTeddyToCart(){
-  localStorage.removeItem(teddy);
+
+function supprTeddyToCart() {
+const teddy = (JSON.parse(localStorage.getItem('cart')));
+const indice = teddy.findIndex(teddy => teddy.name === "Norbert");
+console.log(indice); 
+console.log(teddy[indice]); 
 }
 
 
-window.addEventListener("load", function () {
-    function sendData() {
-      let XHR = new XMLHttpRequest();
-  
-      // Liez l'objet FormData et l'élément form
-      let FD = new FormData(form);
-  
-      // Définissez ce qui se passe si la soumission s'est opérée avec succès
-      XHR.addEventListener("load", function(event) {
-        alert(event.target.responseText);
-      });
-  
-      // Definissez ce qui se passe en cas d'erreur
-      XHR.addEventListener("error", function(event) {
-        alert('Oups! Quelque chose s\'est mal passé.');
-      });
-  
-      // Configurez la requête
-      XHR.open("POST", "http://localhost:3000/api/teddies/order");
-  
-      // Les données envoyées sont ce que l'utilisateur a mis dans le formulaire
-      XHR.send(FD);
+function checkFormAndPostRequest() {
+
+  // On récupère les inputs depuis le DOM.
+  const submit = document.querySelector("#submit");
+  let inputName = document.querySelector("#name");
+  let inputLastName = document.querySelector("#lastname");
+  let inputPostal = document.querySelector("#postal");
+  let inputCity = document.querySelector("#city");
+  let inputAdress = document.querySelector("#adress");
+  let inputMail = document.querySelector("#mail");
+  let inputPhone = document.querySelector("#phone");
+  let erreur = document.querySelector(".erreur");
+
+  // Lors d'un clic, si l'un des champs n'est pas rempli, on affiche une erreur, on empêche l'envoi du formulaire. On vérifie aussi que le numéro est un nombre, sinon même chose.
+  submit.addEventListener("click", (e) => {
+    if (
+      !inputName.value ||
+      !inputLastName.value ||
+      !inputPostal.value ||
+      !inputCity.value ||
+      !inputAdress.value ||
+      !inputMail.value ||
+      !inputPhone.value
+    ) {
+      erreur.innerHTML = "Vous devez renseigner tous les champs !";
+      e.preventDefault();
+    } else if (isNaN(inputPhone.value)) {
+      e.preventDefault();
+      erreur.innerText = "Votre numéro de téléphone n'est pas valide";
+    } else {
+
+      // Si le formulaire est valide, le tableau productsBought contiendra un tableau d'objet qui sont les produits acheté, et order contiendra ce tableau ainsi que l'objet qui contient les infos de l'acheteur
+      let productsBought = [];
+      productsBought.push(copyOfLS);
+
+      const order = {
+        contact: {
+          firstName: inputName.value,
+          lastName: inputLastName.value,
+          city: inputCity.value,
+          address: inputAdress.value,
+          email: inputMail.value,
+        },
+        products: productsBought,
+      };
+
+      // -------  Envoi de la requête POST au back-end --------
+      // Création de l'entête de la requête
+      const options = {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      // Préparation du prix formaté pour l'afficher sur la prochaine page
+      let priceConfirmation = document.querySelector(".total").innerText;
+      priceConfirmation = priceConfirmation.split(" :");
+
+      // Envoie de la requête avec l'en-tête. On changera de page avec un localStorage qui ne contiendra plus que l'order id et le prix.
+      fetch("http://localhost:3000/api/teddies/order", options)
+        .then((response) => response.json())
+        .then((data) => {
+          localStorage.clear();
+          console.log(data)
+          localStorage.setItem("orderId", data.orderId);
+          localStorage.setItem("total", priceConfirmation[1]);
+
+          //  On peut commenter cette ligne pour vérifier le statut 201 de la requête fetch. Le fait de préciser la destination du lien ici et non dans la balise <a> du HTML permet d'avoir le temps de placer les éléments comme l'orderId dans le localStorage avant le changement de page.
+           document.location.href = "confirmation.html";
+        })
+        .catch((err) => {
+          alert("Il y a eu une erreur : " + err);
+        });
     }
-  
-    // Accédez à l'élément form …
-    let form = document.getElementById("myForm");
-  
-    // … et prenez en charge l'événement submit.
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-  
-      sendData();
-    });
   });
+}
