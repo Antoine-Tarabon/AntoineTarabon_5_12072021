@@ -1,38 +1,47 @@
+let cartTotal = 0;
+
 (JSON.parse(localStorage.getItem('cart'))).forEach(function(teddy) {
+  cartTotal = cartTotal +(teddy.price/100);
     document.getElementById('panier').innerHTML = document.getElementById('panier').innerHTML +
-
-    '            <div class="card border-0 my-3 col-4">\n' +
-    '          <a href="./produit.html?id='+teddy._id+'">\n' +
-    '              <img src="'+teddy.imageUrl+'" width="100%" height="100%" alt="ours en peluche" >\n' +
-    '          </a> \n' +
-    '            </div>\n' +
-    '            <div class="card-body text-center col-4 ">\n' +
-    '              <h3 class="card-title">'+teddy.name+'</h3>\n' +
-    '              <p class="card-text ">'+(teddy.price/100)+' €</p>\n' +
-    '              <p class="card-description">'+teddy.description+'</p>\n' +
-    '              <p class="card-color">'+teddy.colors+'</p>\n' +
-    '            </div>\n' +
-    '              <div class="etoiles d-flex align-items-center justify-content-center col-2 ">\n' +
-    '                <i class="fas fa-star active"></i>\n' +
-    '                <i class="fas fa-star active"></i>\n' +
-    '                <i class="fas fa-star active"></i>\n' +
-    '                <i class="fas fa-star active"></i>\n' +
-    '                <i class="fas fa-star active"></i>\n' +
-    '          </div>\n'  +
-    '          <div class="d-flex align-items-center justify-content-center col-2">\n' +
-    '          <button onclick="supprTeddyToCart()" > <i class="fas fa-times"></i> </button>'
+    '<div class="row">\n' +     
+        '<div class="card border-0 my-3 col-sm-12 col-xl-4">\n' +
+          '<a href="./produit.html?id='+teddy._id+'">\n' +
+            '<img src="'+teddy.imageUrl+'" width="100%" height="100%" alt="ours en peluche" >\n' +
+          '</a> \n' +
+        '</div>\n' +
+        '<div class="card-body text-center col-4 ">\n' +
+          '<h3 class="card-title">'+teddy.name+'</h3>\n' +
+          '<p class="card-text ">'+(teddy.price/100)+' €</p>\n' +
+          '<p class="card-description">'+teddy.description+'</p>\n' +
+        '</div>\n' +
+        '<div class="etoiles d-flex align-items-center justify-content-center col-sm-12 col-xl-2 ">\n' +
+          '<i class="fas fa-star active"></i>\n' +
+          '<i class="fas fa-star active"></i>\n' +
+          '<i class="fas fa-star active"></i>\n' +
+          '<i class="fas fa-star active"></i>\n' +
+          '<i class="fas fa-star active"></i>\n' +
+        '</div>\n'  +
+        '<div class="d-flex align-items-center justify-content-center col-2">\n' +
+          '<button onclick="supprTeddyToCart(this, \''+teddy._id+'\')" > <i class="fas fa-times"></i> </button>'+
+        '</div>\n' +     
+    '</div>'
 });
+document.querySelector('#total').innerHTML = cartTotal + '€';
 
-function supprTeddyToCart() {
-const teddy = (JSON.parse(localStorage.getItem('cart')));
-const indice = teddy.findIndex(teddy => teddy.name === "Norbert");
-console.log(indice); 
-console.log(teddy[indice]); 
+function supprTeddyToCart(element, teddyId) {
+  console.log(teddyId)
+const cartTeddies = (JSON.parse(localStorage.getItem('cart')));
+const index = cartTeddies.findIndex(teddy => teddy._id === teddyId);
+console.log(cartTeddies);
+cartTeddies.splice(index, 1);
+console.log(cartTeddies)
+localStorage.setItem('cart', JSON.stringify(cartTeddies));
+element.parentNode.parentNode.remove();
 }
 
+async function checkFormAndPostRequest(e) {
 
-function checkFormAndPostRequest() {
-
+  e.preventdefault();
   // On récupère les inputs depuis le DOM.
   const submit = document.querySelector("#submit");
   let inputName = document.querySelector("#name");
@@ -45,7 +54,7 @@ function checkFormAndPostRequest() {
   let erreur = document.querySelector(".erreur");
 
   // Lors d'un clic, si l'un des champs n'est pas rempli, on affiche une erreur, on empêche l'envoi du formulaire. On vérifie aussi que le numéro est un nombre, sinon même chose.
-  submit.addEventListener("click", (e) => {
+  
     if (
       !inputName.value ||
       !inputLastName.value ||
@@ -56,15 +65,11 @@ function checkFormAndPostRequest() {
       !inputPhone.value
     ) {
       erreur.innerHTML = "Vous devez renseigner tous les champs !";
-      e.preventDefault();
     } else if (isNaN(inputPhone.value)) {
-      e.preventDefault();
       erreur.innerText = "Votre numéro de téléphone n'est pas valide";
     } else {
 
-      // Si le formulaire est valide, le tableau productsBought contiendra un tableau d'objet qui sont les produits acheté, et order contiendra ce tableau ainsi que l'objet qui contient les infos de l'acheteur
-      let productsBought = [];
-      productsBought.push(copyOfLS);
+      // Si le formulaire est valide, le tableau  order contiendra les produits ainsi que l'objet qui contient les infos de l'acheteur
 
       const order = {
         contact: {
@@ -74,7 +79,7 @@ function checkFormAndPostRequest() {
           address: inputAdress.value,
           email: inputMail.value,
         },
-        products: productsBought,
+        products: JSON.parse(localStorage.getItem('cart')),
       };
 
       // -------  Envoi de la requête POST au back-end --------
@@ -86,24 +91,18 @@ function checkFormAndPostRequest() {
       };
 
       // Préparation du prix formaté pour l'afficher sur la prochaine page
-      let priceConfirmation = document.querySelector(".total").innerText;
+      const priceConfirmation = document.querySelector("#total").innerText;
       priceConfirmation = priceConfirmation.split(" :");
 
       // Envoie de la requête avec l'en-tête. On changera de page avec un localStorage qui ne contiendra plus que l'order id et le prix.
-      fetch("http://localhost:3000/api/teddies/order", options)
-        .then((response) => response.json())
-        .then((data) => {
+      const orderRequest= await fetch("http://localhost:3000/api/teddies/order", options);
+        const orderJSON = await orderRequest.json();
+        console.log(orderJSON)
           localStorage.clear();
-          console.log(data)
           localStorage.setItem("orderId", data.orderId);
-          localStorage.setItem("total", priceConfirmation[1]);
+          localStorage.setItem("total", priceConfirmation);
 
           //  On peut commenter cette ligne pour vérifier le statut 201 de la requête fetch. Le fait de préciser la destination du lien ici et non dans la balise <a> du HTML permet d'avoir le temps de placer les éléments comme l'orderId dans le localStorage avant le changement de page.
-           document.location.href = "confirmation.html";
-        })
-        .catch((err) => {
-          alert("Il y a eu une erreur : " + err);
-        });
+          document.location.href = "confirmation.html";
     }
-  });
 }

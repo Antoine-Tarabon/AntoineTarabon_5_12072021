@@ -32,20 +32,24 @@
               <div class="text-center my-2 col-6 col-sm-6 col-md-3 col-lg-2">
                    <a href="./panier.html">Panier
                    <img src="./node_modules/bootstrap-icons/icons/basket2-fill.svg" alt="panier"></a>
-                   <!-- mettre un +1 lors de lappui sur le bouton ajouter au panier  -->
              </div>   
         </nav>
     </header>
     <main class="container">
-      <div class="row" id="panier"></div>
+      <div class="row justify-content-center " id="panier"></div>
+      <div class="row d-flex justify-content-center my-5" id="totalContainer">
+          <p><strong>Total</strong></p>
+          <div id="total" class="d-flex justify-content-center col-1"></div>
+      </div>
+      
 
       <div class="cart-card__form">
         <h2>Votre adresse de livraison</h2>
-        <form class="form">
+        <form class="form" onsubmit="checkFormaAndRequest(event)" >
             <div class="name-and-lastname">
                 <div class="cart-card__form-line" id="bloc__name">
                     <label for="name">Prénom :</label>
-                    <input type="text" placeholder="Prénom" id="name" name="user_name" required> 
+                    <input type="text" placeholder="Prénom" id="name" name="user_firstname" required> 
                 </div>
                 <div class="cart-card__form-line" id="bloc__lastname">
                     <label for="lastname">Nom :</label>
@@ -76,9 +80,10 @@
             </div>
             <div class="erreur"></div>
             <div class="cart-card__form__buttons">
-                    <button id="submit" class="cart-card__form__button to-pay" >Commander</button>
+                    <button type="submit" class="cart-card__form__button to-pay" >Commander</button>
             </div>
         </form>
+      </div>
     </main>
 
     <footer class="container-fluid">

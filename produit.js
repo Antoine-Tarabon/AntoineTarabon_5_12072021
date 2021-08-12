@@ -1,4 +1,3 @@
-
 async function getTeddy(id) {
     let teddyApi = await fetch('http://localhost:3000/api/teddies/'+id);
     let teddy = await teddyApi.json();
@@ -36,7 +35,7 @@ function addTeddyToCart() {
     cart.push(teddy);
     document.getElementById('cart-quantity').innerHTML = '(' + cart.length + ')';
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(cart)
+    console.log(cart);
 }
 
 getTeddy(findGetParameter('id'));

@@ -33,6 +33,14 @@ footer a:hover {
   color: #8f5bfe;
 }
 
+main #panier .etoiles {
+  color: grey;
+}
+
+main #panier .etoiles .active {
+  color: #cb7c54;
+}
+
 main #panier button {
   border: none;
   background-color: transparent;
@@ -40,6 +48,24 @@ main #panier button {
 
 main #panier button i {
   color: red;
+}
+
+main #totalContainer p {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main #totalContainer #total {
+  border: solid 2px #8f5bfe;
+  border-radius: 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.2rem 1.6rem;
 }
 
 main #myForm {
