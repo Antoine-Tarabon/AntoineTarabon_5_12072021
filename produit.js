@@ -32,7 +32,7 @@ function addTeddyToCart() {
     if(cart ===null) {
         cart = [];
     }
-    cart.push(teddy);
+    cart.push(teddy._id);
     document.getElementById('cart-quantity').innerHTML = '(' + cart.length + ')';
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log(cart);

@@ -30,7 +30,7 @@
                </div> 
 
             <div class="text-center my-2 col-6 col-sm-6 col-md-3 col-lg-2">
-                 <a href="./panier.html">Panier
+                 <a href="./panier.html">Panier<span id="cart-quantity"></span>
                  <img src="./node_modules/bootstrap-icons/icons/basket2-fill.svg" alt="panier"></a>
                  <!-- mettre un +1 lors de lappui sur le bouton ajouter au panier  -->
            </div>   
@@ -58,6 +58,8 @@
       </div>
 
   </footer>
-   
+  <script>
+    document.getElementById('cart-quantity').innerHTML = '(' + JSON.parse(localStorage.getItem('cart')).length + ')';
+  </script>
 </body>
 </html>
