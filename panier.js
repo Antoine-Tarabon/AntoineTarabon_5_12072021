@@ -1,6 +1,8 @@
+//on défini le total 
 let cartTotal = 0;
-
+//on récupère cart du localstorage et pour chaque cart on va modifier quelque chose
 (JSON.parse(localStorage.getItem('cart'))).forEach(function(productId) {
+  //on récupère les information des peluche par apport à leur id 
   fetch('http://localhost:3000/api/teddies/'+productId)
       .then(function(res){
         if (res.ok){
@@ -8,7 +10,9 @@ let cartTotal = 0;
         }
       })
       .then(function(teddy){
+        //on calcul le total
         cartTotal = cartTotal +(teddy.price/100);
+        //on cible les élements ou on veux modifier le html et on met les varibles que l'on a récuperé
         document.getElementById('panier').innerHTML = document.getElementById('panier').innerHTML +
         '<div class="row">\n' +     
             '<div class="card border-0 my-3 col-sm-12 col-xl-4">\n' +
@@ -32,6 +36,7 @@ let cartTotal = 0;
               '<button onclick="supprTeddyToCart(this, \''+teddy._id+'\')" > <i class="fas fa-times"></i> </button>'+
             '</div>\n' +     
         '</div>';
+        //on cible l'element ou on veux modifier le total et on y met le cartTotal
         document.querySelector('#total').innerHTML = cartTotal + '€';
       })
       .catch(function(err){
@@ -39,7 +44,7 @@ let cartTotal = 0;
       });
 });
 
-
+//on créer une fonction qui supprime une peluche du localstorage
 function supprTeddyToCart(element, teddyId) {
 //récupération des peluches 
 const cartTeddies = (JSON.parse(localStorage.getItem('cart')));
@@ -81,7 +86,7 @@ async function checkFormAndPostRequest(e) {
   let inputPhone = document.querySelector("#phone");
   let erreur = document.querySelector(".erreur");
 
-  // Lors d'un clic, si l'un des champs n'est pas rempli, on affiche une erreur, on empêche l'envoi du formulaire. On vérifie aussi que le numéro est un nombre, sinon même chose.
+  // Lors d'un clic si l'un des champs n'est pas rempli on affiche une erreur on empêche l'envoi du formulaire. On vérifie aussi que le numéro est un nombre, sinon même chose.
   
     if (
       !inputName.value ||
@@ -97,7 +102,7 @@ async function checkFormAndPostRequest(e) {
       erreur.innerText = "Votre numéro de téléphone n'est pas valide";
     } else {
 
-      // Si le formulaire est valide, le tableau  order contiendra les produits ainsi que l'objet qui contient les infos de l'acheteur
+      // Si le formulaire est valide le tableau  order contiendra les produits ainsi que l'objet qui contient les infos de l'acheteur
 
       const order = {
         contact: {

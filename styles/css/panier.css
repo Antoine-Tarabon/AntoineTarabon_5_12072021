@@ -68,15 +68,20 @@ main #totalContainer #total {
   padding: 0.2rem 1.6rem;
 }
 
-main #myForm {
+main .form {
   margin: 1rem;
 }
 
-main #myForm input {
+main .form input {
   margin: 0.5rem 0 0.5rem 0;
 }
 
-main #myForm #envoyer {
+main .form .erreur {
+  font-size: 1.2em;
+  color: red;
+}
+
+main .form button {
   border-radius: 20px;
   border-color: #8f5bfe;
   padding: 0.5rem;
@@ -90,7 +95,7 @@ main #myForm #envoyer {
           transition-duration: 400ms;
 }
 
-main #myForm #envoyer:hover {
+main .form button:hover {
   -webkit-transform: scale(1.15);
           transform: scale(1.15);
 }

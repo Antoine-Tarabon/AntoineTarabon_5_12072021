@@ -30,12 +30,16 @@ main{
             padding: 0.2rem 1.6rem;
         }
     }
-    #myForm{
+    .form{
         margin: 1rem;
         input{
             margin: 0.5rem 0 0.5rem 0;
         }
-        #envoyer{
+        .erreur{
+            font-size: 1.2em;
+            color: red;
+        }
+        button{
         border-radius: 20px;
         border-color: #8f5bfe;
         padding: 0.5rem;
