@@ -1,19 +1,16 @@
-
-
-function getTeddies() {
-    //on récupère les informations des peluches
+//fonction qui récupère toute les peluches en base et les affiches sur la page 
+function getTeddies() {  
+    //récupération des peluches en base
     fetch("http://localhost:3000/api/teddies/")
      .then(function(res) {
         if (res.ok) {
           return res.json();
         }
     })
+    //Rajout dans le DOM de la partie html de chaque peluche
     .then(function(teddies) {
-        //pour chacune des peluche on va modifier quelque chose
         teddies.forEach((teddy, index) => {
-            //on cible l'element ou on veux modifier le html 
             document.getElementById('catalog').innerHTML = document.getElementById('catalog').innerHTML +
-            //on met les varibles que l'on a récuperé
             '<div class="col-12 col-md-8 col-lg-6 col-xl-4 my-3">\n' +
             '          <a href="./produit.html?id='+teddy._id+'">\n' +
             '            <div class="card border-0">\n' +
@@ -38,4 +35,5 @@ function getTeddies() {
 
     });
 }
+//appel de la fonction getTeddies
 let teddies= getTeddies();

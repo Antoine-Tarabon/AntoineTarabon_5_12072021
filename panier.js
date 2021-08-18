@@ -1,6 +1,6 @@
 //on défini le total 
 let cartTotal = 0;
-//on récupère cart du localstorage et pour chaque cart on va modifier quelque chose
+//Récupération des éléments du panier puis affichage sur la page
 (JSON.parse(localStorage.getItem('cart'))).forEach(function(productId) {
   //on récupère les information des peluche par apport à leur id 
   fetch('http://localhost:3000/api/teddies/'+productId)
@@ -10,7 +10,7 @@ let cartTotal = 0;
         }
       })
       .then(function(teddy){
-        //on calcul le total
+        //on calcul le nouveau total
         cartTotal = cartTotal +(teddy.price/100);
         //on cible les élements ou on veux modifier le html et on met les varibles que l'on a récuperé
         document.getElementById('panier').innerHTML = document.getElementById('panier').innerHTML +
@@ -46,7 +46,7 @@ let cartTotal = 0;
 
 //on créer une fonction qui supprime une peluche du localstorage
 function supprTeddyToCart(element, teddyId) {
-//récupération des peluches 
+//récupération des peluches du localstorage
 const cartTeddies = (JSON.parse(localStorage.getItem('cart')));
 //récupération de l'index de la peluche que l'on veut supprimer
 const index = cartTeddies.findIndex(productId => productId === teddyId);
@@ -64,7 +64,7 @@ fetch('http://localhost:3000/api/teddies/'+cartTeddies[index])
  .catch(function(err){
   console.log(err);
 });
-//suppression de la peluche
+//suppression de la peluche du localstorage
 cartTeddies.splice(index, 1);
 //mise à jour du localstorage
 localStorage.setItem('cart', JSON.stringify(cartTeddies));
@@ -72,8 +72,9 @@ localStorage.setItem('cart', JSON.stringify(cartTeddies));
 element.parentNode.parentNode.remove();
 }
 
+//fonction qui permet de valider le panier de l'utilisateur
 async function checkFormAndPostRequest(e) {
-
+  //on supprime le comportement par default du submit du formulaire
   e.preventDefault();
   // On récupère les inputs depuis le DOM.
   const submit = document.querySelector("#submit");
@@ -131,12 +132,11 @@ async function checkFormAndPostRequest(e) {
       // Envoie de la requête avec l'en-tête. On changera de page avec un localStorage qui ne contiendra plus que l'order id et le prix.
       const orderRequest= await fetch("http://localhost:3000/api/teddies/order", options);
       const orderJSON = await orderRequest.json();
-      console.log(orderJSON)
       localStorage.clear();
       localStorage.setItem("orderId", orderJSON.orderId);
       localStorage.setItem("total", priceConfirmation[0]);
 
-      //  On peut commenter cette ligne pour vérifier le statut 201 de la requête fetch. Le fait de préciser la destination du lien ici et non dans la balise <a> du HTML permet d'avoir le temps de placer les éléments comme l'orderId dans le localStorage avant le changement de page.
+      //Redirection vers la page de confirmation
       document.location.href = "confirmation.html";
     }
 }
