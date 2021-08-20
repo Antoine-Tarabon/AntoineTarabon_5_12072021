@@ -14,27 +14,27 @@ let cartTotal = 0;
         cartTotal = cartTotal +(teddy.price/100);
         //on cible les élements ou on veux modifier le html et on met les varibles que l'on a récuperé
         document.getElementById('panier').innerHTML = document.getElementById('panier').innerHTML +
-        '<div class="row">\n' +     
-            '<div class="card border-0 my-3 col-sm-12 col-xl-4">\n' +
-              '<a href="./produit.html?id='+teddy._id+'">\n' +
-                '<img src="'+teddy.imageUrl+'" width="100%" height="100%" alt="ours en peluche" >\n' +
-              '</a> \n' +
-            '</div>\n' +
-            '<div class="card-body text-center col-4 ">\n' +
-              '<h3 class="card-title">'+teddy.name+'</h3>\n' +
-              '<p class="card-text ">'+(teddy.price/100)+' €</p>\n' +
-              '<p class="card-description">'+teddy.description+'</p>\n' +
-            '</div>\n' +
-            '<div class="etoiles d-flex align-items-center justify-content-center col-sm-12 col-xl-2 ">\n' +
-              '<i class="fas fa-star active"></i>\n' +
-              '<i class="fas fa-star active"></i>\n' +
-              '<i class="fas fa-star active"></i>\n' +
-              '<i class="fas fa-star active"></i>\n' +
-              '<i class="fas fa-star active"></i>\n' +
-            '</div>\n'  +
-            '<div class="d-flex align-items-center justify-content-center col-2">\n' +
+        '<div class="row">' +     
+            '<div class="card border-0 my-3 col-sm-12 col-xl-4">' +
+              '<a href="./produit.html?id='+teddy._id+'">' +
+                '<img src="'+teddy.imageUrl+'" width="100%" height="100%" alt="ours en peluche" >' +
+              '</a> ' +
+            '</div>' +
+            '<div class="card-body text-center col-4 ">' +
+              '<h3 class="card-title">'+teddy.name+'</h3>' +
+              '<p class="card-text ">'+(teddy.price/100)+' €</p>' +
+              '<p class="card-description">'+teddy.description+'</p>' +
+            '</div>' +
+            '<div class="etoiles d-flex align-items-center justify-content-center col-sm-12 col-xl-2 ">' +
+              '<i class="fas fa-star active"></i>' +
+              '<i class="fas fa-star active"></i>' +
+              '<i class="fas fa-star active"></i>' +
+              '<i class="fas fa-star active"></i>' +
+              '<i class="fas fa-star active"></i>' +
+            '</div>'  +
+            '<div class="d-flex align-items-center justify-content-center col-2">' +
               '<button onclick="supprTeddyToCart(this, \''+teddy._id+'\')" > <i class="fas fa-times"></i> </button>'+
-            '</div>\n' +     
+            '</div>' +     
         '</div>';
         //on cible l'element ou on veux modifier le total et on y met le cartTotal
         document.querySelector('#total').innerHTML = cartTotal + '€';
