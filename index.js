@@ -11,24 +11,24 @@ function getTeddies() {
     .then(function(teddies) {
         teddies.forEach((teddy, index) => {
             document.getElementById('catalog').innerHTML = document.getElementById('catalog').innerHTML +
-            '<div class="col-12 col-md-8 col-lg-6 col-xl-4 my-3">\n' +
-            '          <a href="./produit.html?id='+teddy._id+'">\n' +
-            '            <div class="card border-0">\n' +
-            '              <img src="'+teddy.imageUrl+'" width="100%" height="60%" alt="Peluche '+teddy.name+'" >\n' +
-            '            <div class="card-body">\n' +
-            '              <h3 class="card-title">'+teddy.name+'</h3>\n' +
-            '              <p class="card-text">'+(teddy.price/100)+' €</p>\n' +
-            '              <div class="etoiles">\n' +
-            '                <i class="fas fa-star active"></i>\n' +
-            '                <i class="fas fa-star active"></i>\n' +
-            '                <i class="fas fa-star active"></i>\n' +
-            '                <i class="fas fa-star active"></i>\n' +
-            '                <i class="fas fa-star active"></i>\n' +
-            '            </div>\n' +
-            '            </div>\n' +
-            '          </div>\n' +
-            '          </a> \n' +
-            '        </div>';
+            '<div class="col-12 col-md-8 col-lg-6 col-xl-4 my-3">' +
+              '<a href="./produit.html?id='+teddy._id+'">' +
+                '<div class="card border-0">' +
+                  '<img src="'+teddy.imageUrl+'" width="100%" height="60%" alt="Peluche '+teddy.name+'" >' +
+                  '<div class="card-body">' +
+                    '<h3 class="card-title">'+teddy.name+'</h3>' +
+                    '<p class="card-text">'+(teddy.price/100)+' €</p>' +
+                    '<div class="etoiles">' +
+                      '<i class="fas fa-star active"></i>' +
+                      '<i class="fas fa-star active"></i>' +
+                      '<i class="fas fa-star active"></i>' +
+                      '<i class="fas fa-star active"></i>' +
+                      '<i class="fas fa-star active"></i>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</a>' +
+            '</div>';
         });
     })
     .catch(function(err) {
